@@ -26,6 +26,10 @@ public class Client {
     private Protocol protocol;
 
     private static Client client;
+    
+    
+    private String message="";
+  
     private Client() throws IOException 
     {
         protocol=new Protocol();
