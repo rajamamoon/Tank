@@ -55,10 +55,6 @@ public class Server extends Thread {
 }
 
     
-
-    
-
-    
     public void run()
     {
         Socket clientSocket=null;
