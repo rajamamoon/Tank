@@ -168,12 +168,8 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     public void windowClosing(WindowEvent e) 
     {
         
-       // int response=JOptionPane.showConfirmDialog(this,"Are you sure you want to exit ?","Tanks 2D Multiplayer Game!",JOptionPane.YES_NO_OPTION);
-        
-     
-     Client.getGameClient().sendToServer(new Protocol().ExitMessagePacket(clientTank.getTankID()));
-        
-        
+     int response=JOptionPane.showConfirmDialog(this,"Are you sure you want to exit ?","Tanks 2D Multiplayer Game!",JOptionPane.YES_NO_OPTION);
+     Client.getGameClient().sendToServer(new Protocol().ExitMessagePacket(clientTank.getTankID()));    
     }
     public void windowClosed(WindowEvent e) {
         
