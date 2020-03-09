@@ -16,7 +16,7 @@ public class Bomb {
     private int yPosi;
     private int direction;
     public boolean stop=false;
-    private float velocityX=0.08f,velocityY=0.08f;
+    private float velocityX=0.09f,velocityY=0.09f;
     
     public Bomb(int x,int y,int direction) {
         final SimpleSoundPlayer sound_boom =new SimpleSoundPlayer("boom.wav");
