@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
+
+
 public class ServerGUI extends JFrame implements ActionListener {
     
     private JButton startServerButton;
@@ -14,7 +17,18 @@ public class ServerGUI extends JFrame implements ActionListener {
     
     private Server server;
     /** Creates a new instance of ServerGUI */
+
+    
+    public static void main(String args[]) throws IOException
+    {
+       ServerGUI serverGUI=new ServerGUI();
+        
+    }
+
+    
+    
     public ServerGUI() 
+            
     {
         setTitle("Game Server GUI");
         setBounds(350,200,300,200);
