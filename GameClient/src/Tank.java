@@ -12,7 +12,7 @@ public class Tank {
     private int tankID;
     private int posiX=-1,posiY=-1;
     private int direction=1;
-    private float velocityX=0.03125f,velocityY=0.03125f;
+    private float velocityX=0.03126f,velocityY=0.03126f;
     private int width=559,height=473;
 
     public int getDirection() 
