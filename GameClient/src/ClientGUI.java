@@ -1,4 +1,4 @@
-
+import java.io.IOException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +40,13 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     private GameBoardPanel boardPanel;
     
     private SoundManger soundManger;
-    
+      
+    public static void main(String args[]) throws IOException
+    {
+        ClientGUI client=new ClientGUI();
+     
+    }
+        
     public ClientGUI() 
     {
         score=0;
