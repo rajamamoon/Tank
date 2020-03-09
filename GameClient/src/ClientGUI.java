@@ -59,13 +59,13 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         setLayout(null);
         addWindowListener(this);
         registerPanel=new JPanel();
-        registerPanel.setBackground(Color.YELLOW);
+        registerPanel.setBackground(Color.WHITE);
         registerPanel.setSize(200,140);
         registerPanel.setBounds(560,50,200,140);
         registerPanel.setLayout(null);
         
         gameStatusPanel=new JPanel();
-        gameStatusPanel.setBackground(Color.YELLOW);
+        gameStatusPanel.setBackground(Color.LIGHT_GRAY);
         gameStatusPanel.setSize(200,300);
         gameStatusPanel.setBounds(560,210,200,311);
         gameStatusPanel.setLayout(null);
@@ -101,7 +101,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         registerPanel.add(registerButton);
        
         gameStatusPanel.add(scoreLabel);
-          gameStatusPanel.add(player1label);
+        gameStatusPanel.add(player1label);
             
         client=Client.getGameClient();
          
@@ -265,7 +265,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                   
                   if(id==clientTank.getTankID())
                   {
-                        int response=JOptionPane.showConfirmDialog(null,"Sorry, You are loss. Do you want to try again ?","Tanks 2D Multiplayer Game",JOptionPane.OK_CANCEL_OPTION);
+                        int response=JOptionPane.showConfirmDialog(null,"Sorry, You Lost. Do you want to try again ?","Tanks 2D Multiplayer Game",JOptionPane.OK_CANCEL_OPTION);
                         if(response==JOptionPane.OK_OPTION)
                         {
                             //client.closeAll();

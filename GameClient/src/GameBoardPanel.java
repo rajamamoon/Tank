@@ -19,15 +19,18 @@ public class GameBoardPanel extends JPanel {
     private int height=523;
     private static ArrayList<Tank> tanks;
     private boolean gameStatus;
+    private Brick br;
     public GameBoardPanel(Tank tank,Client client, boolean gameStatus) 
     {
+     
+        br = new Brick();
         this.tank=tank;
         this.gameStatus=gameStatus;
         setSize(width,height);
         setBounds(-50,0,width,height);
         addKeyListener(new InputManager(tank));
         setFocusable(true);
-        
+   
         tanks=new ArrayList<Tank>(100);
         
         for(int i=0;i<100;i++)
@@ -38,19 +41,19 @@ public class GameBoardPanel extends JPanel {
     }
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
-        Graphics2D g=(Graphics2D)gr;
- 
+        Graphics2D g =(Graphics2D)gr;         
+        br.draw(this, g);
+        br.drawSolids(this, g); 
         g.setColor(Color.BLACK);
         g.fillRect(0,0, getWidth(),getHeight());
-        
         g.setColor(Color.GREEN);
         g.fillRect(70,50, getWidth()-100,getHeight());
         g.drawImage(new ImageIcon("Images/bg.jpg").getImage(),70,50,null);
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.RED);
         g.setFont(new Font("Comic Sans MS",Font.BOLD,25));
         g.drawString("Tanks 2D Multiplayers Game",255,30);
         if(gameStatus) 
-        {
+        { 
             g.drawImage(tank.getBuffImage(),tank.getXposition(),tank.getYposition(),this);
             for(int j=0;j<1000;j++)
             {
