@@ -7,8 +7,7 @@ public class SimpleSoundPlayer  {
     public static void main(String[] args) {
         // load a sound
         SimpleSoundPlayer sound =
-            new SimpleSoundPlayer("D:/Collage/Fourth Year/Second Term/Dist sys/Lab/assg1_final/GameServer/src/Untitled1.wav");
-
+            new SimpleSoundPlayer("Pulse.mp3");
         // create the stream to play
         InputStream stream =
             new LoopingByteInputStream(sound.getSamples());

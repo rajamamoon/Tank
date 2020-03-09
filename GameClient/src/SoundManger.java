@@ -13,7 +13,7 @@ public class SoundManger {
     AudioFormat audioFormat;
     AudioInputStream audioInputStream;
     SourceDataLine sourceDataLine;
-    String X="start.wav";
+    String X="Pulse.wav";
         
     public SoundManger()
     {

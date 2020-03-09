@@ -19,7 +19,7 @@ public class Bomb {
     private float velocityX=0.09f,velocityY=0.09f;
     
     public Bomb(int x,int y,int direction) {
-        final SimpleSoundPlayer sound_boom =new SimpleSoundPlayer("boom.wav");
+        final SimpleSoundPlayer sound_boom =new SimpleSoundPlayer("fire.wav");
         final InputStream stream_boom =new ByteArrayInputStream(sound_boom.getSamples());
         xPosi=x;
         yPosi=y;
