@@ -20,17 +20,17 @@ public class GameBoardPanel extends JPanel {
     private static ArrayList<Tank> tanks;
     private boolean gameStatus;
     private Brick br;
+    private ArrayList<Obstacles>obstacles;
     public GameBoardPanel(Tank tank,Client client, boolean gameStatus) 
     {
-     
-        br = new Brick();
+        this.br=br;
         this.tank=tank;
         this.gameStatus=gameStatus;
         setSize(width,height);
         setBounds(-50,0,width,height);
         addKeyListener(new InputManager(tank));
         setFocusable(true);
-   
+       
         tanks=new ArrayList<Tank>(100);
         
         for(int i=0;i<100;i++)
@@ -44,6 +44,7 @@ public class GameBoardPanel extends JPanel {
         Graphics2D g =(Graphics2D)gr;         
         br.draw(this, g);
         br.drawSolids(this, g); 
+    
         g.setColor(Color.BLACK);
         g.fillRect(0,0, getWidth(),getHeight());
         g.setColor(Color.GREEN);
