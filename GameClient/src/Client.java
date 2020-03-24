@@ -13,11 +13,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class Client {
-    
-    /**
-     * Creates a new instance of Client
-     */
-    
+
     private Socket clientSocket;
     private String hostName;
     private int serverPort;
