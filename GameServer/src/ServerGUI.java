@@ -36,8 +36,7 @@ public class ServerGUI extends JFrame implements ActionListener {
             
     {
         
-        textArea =new JTextArea();
-        textArea.setBackground(Color.LIGHT_GRAY);
+        
         host = InetAddress.getLocalHost();
         address = host.getHostAddress();
         
@@ -53,7 +52,9 @@ public class ServerGUI extends JFrame implements ActionListener {
         stopButton=new JButton("Stop Server");
         stopButton.setBounds(200,30,120,25);
         stopButton.addActionListener(this);
-
+        
+        textArea =new JTextArea();
+        textArea.setBackground(Color.LIGHT_GRAY);
         textArea.setBounds(80,100,200,200);
         textArea.setPreferredSize(new Dimension(100,100));
         
@@ -81,8 +82,9 @@ public class ServerGUI extends JFrame implements ActionListener {
              server.start();
              startButton.setEnabled(false);
              textArea.setEditable(false);
-             textArea.append("Server is running on below ip"+"\n");
-             textArea.append(address +"\n");
+             textArea.append("Server is running on below IP"+"\n");
+             textArea.append("Select localhost(127.0.0.1) if playing\non local server"+"\n");
+             textArea.append("IP:"+address +"\n");
              textArea.append("Port:"+"1111" + "\n");
             
         }
