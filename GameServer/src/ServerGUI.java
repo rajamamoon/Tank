@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,20 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import javax.swing.JTextArea;
 
 
 public class ServerGUI extends JFrame implements ActionListener {
     
-    private JButton startServerButton;
-    private JButton stopServerButton;
-    private JLabel statusLabel;
-    private JLabel ip;
-    private JLabel port;
+    private JButton startButton;
+    private JButton stopButton;
     InetAddress host;
     String address;
-   // private JLabel statusLabel;
-   
-    
+    JTextArea textArea;
+
+ 
     private Server server;
     /** Creates a new instance of ServerGUI */
 
@@ -36,36 +35,35 @@ public class ServerGUI extends JFrame implements ActionListener {
     public ServerGUI() throws UnknownHostException 
             
     {
+        
+        textArea =new JTextArea();
+        textArea.setBackground(Color.LIGHT_GRAY);
         host = InetAddress.getLocalHost();
         address = host.getHostAddress();
+        
         setTitle("Game Server GUI");
-        setBounds(750,400,400,200);
-        
+        setBounds(750,400,400,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         setLayout(null);
-        startServerButton=new JButton("Start Server");
-        startServerButton.setBounds(50,30,120,25);
-        startServerButton.addActionListener(this);
         
-        stopServerButton=new JButton("Stop Server");
-        stopServerButton.setBounds(200,30,120,25);
-        stopServerButton.addActionListener(this);
+        startButton=new JButton("Start Server");
+        startButton.setBounds(50,30,120,25);
+        startButton.addActionListener(this);
         
-        statusLabel=new JLabel();
-        statusLabel.setBounds(80,80,200,25);
-        ip=new JLabel();
-        ip.setBounds(80,100,200,25);
-        port=new JLabel();
-        port.setBounds(80,120,200,25);
+        stopButton=new JButton("Stop Server");
+        stopButton.setBounds(200,30,120,25);
+        stopButton.addActionListener(this);
+
+        textArea.setBounds(80,100,200,200);
+        textArea.setPreferredSize(new Dimension(100,100));
+        
         ImageIcon icon = new ImageIcon("Tankicon.png");
         setIconImage(icon.getImage());
         getContentPane().setBackground(Color.GRAY);
-        getContentPane().add(statusLabel);
-        getContentPane().add(ip);
-        getContentPane().add(port);
-        getContentPane().add(startServerButton);
-        getContentPane().add(stopServerButton);
+        getContentPane().add(startButton);
+        getContentPane().add(stopButton);
+        getContentPane().add(textArea);
+        
         try {
             
             server=new Server();
@@ -78,28 +76,31 @@ public class ServerGUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource()==startServerButton)
+        if(e.getSource()==startButton)
         {
              server.start();
-             startServerButton.setEnabled(false);
-             statusLabel.setText("Server is running on below ip");
-             ip.setText("ip:"+address);
-             port.setText("Port:"+"1111");
+             startButton.setEnabled(false);
+             textArea.setEditable(false);
+             textArea.append("Server is running on below ip"+"\n");
+             textArea.append(address +"\n");
+             textArea.append("Port:"+"1111" + "\n");
             
         }
         
-        if(e.getSource()==stopServerButton)
+        if(e.getSource()==stopButton)
         {
             try {
- 
+                textArea.append("Server is stopping.....");
                 server.stopServer();
-                statusLabel.setText("Server is stopping.....");
+             
                 try {
                     Thread.sleep(2000);
+                
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
                 System.exit(0);
+                
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
