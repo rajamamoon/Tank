@@ -7,14 +7,10 @@ import java.net.SocketException;
 import java.util.ArrayList;
 
 public class Server extends Thread {
-    
-    /**
-     * Creates a new instance of Server
-     */
-    
+
     private ArrayList<ClientInfo> clients;
     private ServerSocket serverSocket;
-    private int serverPort=11111;
+    private int serverPort=11111;S
     
    
     private DataInputStream reader;
