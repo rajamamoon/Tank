@@ -10,7 +10,7 @@ public class Server extends Thread {
 
     private ArrayList<ClientInfo> clients;
     private ServerSocket serverSocket;
-    private int serverPort=11111;
+    private int serverPort=1111;
     
    
     private DataInputStream reader;
@@ -199,7 +199,7 @@ public class Server extends Thread {
                 y=clients.get(i).getY();
                 dir=clients.get(i).getDir();
                 try {
-                    writer.writeUTF(protocol.NewClientPacket(x,y,dir,i+1));
+                    writer.writeUTF(protocol.NewClientPacket(x,y,dir,i+1));            
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -246,8 +246,8 @@ public class Server extends Thread {
         }
         public int getDir()
         {
-            return direction;
-        }
+            return direction;        
+        }      
     }
     
 }
