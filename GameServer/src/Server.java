@@ -10,7 +10,7 @@ public class Server extends Thread {
 
     private ArrayList<ClientInfo> clients;
     private ServerSocket serverSocket;
-    private int serverPort=11111;S
+    private int serverPort=11111;
     
    
     private DataInputStream reader;
