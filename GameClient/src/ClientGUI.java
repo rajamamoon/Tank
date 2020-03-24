@@ -53,24 +53,26 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         score=0;
         setTitle("Multiclients Tanks Game");
         setSize(width,height);
-        setLocation(60,100);
-        getContentPane().setBackground(Color.BLACK);
+        setLocation(100,100);
+        setBounds(700,700,1500,1000);
+        getContentPane().setBackground(Color.DARK_GRAY);
         
         ImageIcon icon = new ImageIcon("Tankicon.png");
         setIconImage(icon.getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         addWindowListener(this);
+        
         registerPanel=new JPanel();
         registerPanel.setBackground(Color.WHITE);
         registerPanel.setSize(200,140);
-        registerPanel.setBounds(560,50,200,140);
+        registerPanel.setBounds(1270,50,200,140);
         registerPanel.setLayout(null);
         
         gameStatusPanel=new JPanel();
         gameStatusPanel.setBackground(Color.LIGHT_GRAY);
         gameStatusPanel.setSize(200,300);
-        gameStatusPanel.setBounds(560,210,200,311);
+        gameStatusPanel.setBounds(1270,210,200,311);
         gameStatusPanel.setLayout(null);
      
         ipaddressLabel=new JLabel("IP address: ");
