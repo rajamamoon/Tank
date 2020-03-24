@@ -22,7 +22,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     private JLabel ipaddressLabel;
     private JLabel portLabel;
     private static JLabel scoreLabel;
-    private  static JLabel player1label;
+
     private JTextField ipaddressText;
     private JTextField portText;
     private static int player1lives;
@@ -81,9 +81,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         
         scoreLabel=new JLabel("Score : 0");
         scoreLabel.setBounds(10,90,100,25);
-        //player lives
-        player1label=new JLabel("player1lives : 0");
-        player1label.setBounds(10,90,100,60);
+  
         
         ipaddressText=new JTextField("localhost");
         ipaddressText.setBounds(90,25,100,25);
@@ -104,7 +102,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         registerPanel.add(registerButton);
        
         gameStatusPanel.add(scoreLabel);
-        gameStatusPanel.add(player1label);
+       
             
         client=Client.getGameClient();
          
@@ -127,7 +125,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     {
         score+=scoreParametar;
         scoreLabel.setText("Score : "+score);
-        player1label.setText("Score : "+player1lives);
+        
         
     }
     
