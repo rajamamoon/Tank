@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,6 +56,8 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         setLocation(60,100);
         getContentPane().setBackground(Color.BLACK);
         
+        ImageIcon icon = new ImageIcon("Tankicon.png");
+        setIconImage(icon.getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         addWindowListener(this);
@@ -85,10 +88,10 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         ipaddressText=new JTextField("localhost");
         ipaddressText.setBounds(90,25,100,25);
         
-        portText=new JTextField("11111");
+        portText=new JTextField("1111");
         portText.setBounds(90,55,100,25);
        
-        registerButton=new JButton("Register");
+        registerButton=new JButton("Connect");
         registerButton.setBounds(60,100,90,25);
         registerButton.addActionListener(this);
         registerButton.setFocusable(true);
