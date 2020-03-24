@@ -19,7 +19,7 @@ public class GameBoardPanel extends JPanel {
     private int height=523;
     private static ArrayList<Tank> tanks;
     private boolean gameStatus;
-    private ArrayList<Obstacles>obstacles;
+    
     public GameBoardPanel(Tank tank,Client client, boolean gameStatus) 
     {
         this.tank=tank;
@@ -39,7 +39,7 @@ public class GameBoardPanel extends JPanel {
     }
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
-        Graphics2D g =(Graphics2D)gr;         
+        Graphics2D g =(Graphics2D)gr;            
         g.setColor(Color.BLACK);
         g.fillRect(0,0, getWidth(),getHeight());
         g.setColor(Color.GREEN);
