@@ -130,7 +130,7 @@ public class Bomb {
                 {
                     yPosi=17+yPosi;
                     xPosi+=30;
-                    while(xPosi<564) 
+                    while(xPosi<1200) 
                     {
                         xPosi=(int)(xPosi+xPosi*velocityX);
                         if(checkCollision()) 
@@ -150,7 +150,7 @@ public class Bomb {
                 {
                     yPosi+=30;
                     xPosi+=20;
-                    while(yPosi<505) 
+                    while(yPosi<923) 
                     {    
                         yPosi=(int)(yPosi+yPosi*velocityY);
                         if(checkCollision()) 
