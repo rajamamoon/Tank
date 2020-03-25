@@ -1,3 +1,4 @@
+import java.awt.Button;
 import java.io.IOException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,7 @@ import java.awt.event.WindowListener;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,9 +21,13 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
 {
     
     /** Creates a new instance of ClientGUI */
+    private JButton startmusic;
+    private JButton stopmusic;
+    
     private JLabel ipaddressLabel;
     private JLabel portLabel;
     private static JLabel scoreLabel;
+     private JLabel Gameid;
 
     private JTextField ipaddressText;
     private JTextField portText;
@@ -35,6 +41,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     private Tank clientTank;
     
     private static int score;
+    private int id;
     
     int width=790,height=580;
     boolean isRunning=true;
@@ -49,7 +56,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     }
         
     public ClientGUI() 
-    {
+    {     
         score=0;
         setTitle("Multiclients Tanks Game");
         setSize(width,height);
@@ -81,10 +88,12 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         portLabel=new JLabel("Port: ");
         portLabel.setBounds(10,55,50,25);
         
+        Gameid=new JLabel("Player ID : ");
+        Gameid.setBounds(10,100,100,25);
         scoreLabel=new JLabel("Score : 0");
-        scoreLabel.setBounds(10,90,100,25);
-  
-        
+        scoreLabel.setBounds(10,120,100,25);
+     
+     
         ipaddressText=new JTextField("localhost");
         ipaddressText.setBounds(90,25,100,25);
         
@@ -96,14 +105,17 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         registerButton.addActionListener(this);
         registerButton.setFocusable(true);
         
-       
+
+    
         registerPanel.add(ipaddressLabel);
         registerPanel.add(portLabel);
         registerPanel.add(ipaddressText);
         registerPanel.add(portText);
         registerPanel.add(registerButton);
        
+        gameStatusPanel.add(Gameid);
         gameStatusPanel.add(scoreLabel);
+
        
             
         client=Client.getGameClient();
@@ -111,12 +123,15 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         clientTank=new Tank();
         boardPanel=new GameBoardPanel(clientTank,client,false);
         
+      
+        
         getContentPane().add(registerPanel);        
         getContentPane().add(gameStatusPanel);
         getContentPane().add(boardPanel);        
         setVisible(true);
 
     }
+     
     
     public static int getScore()
     {
@@ -135,14 +150,17 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     {
         Object obj=e.getSource();
         
+        
         if(obj==registerButton)
         {
             registerButton.setEnabled(false);
+         //   soundManger=new SoundManger();
             
             try 
             {
                  client.register(ipaddressText.getText(),Integer.parseInt(portText.getText()),clientTank.getXposition(),clientTank.getYposition());
-                 soundManger=new SoundManger();
+                 
+                 
                  boardPanel.setGameStatus(true);
                  boardPanel.repaint();
                 try {
@@ -160,9 +178,8 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                 registerButton.setEnabled(true);
             }
         }
-        
+         
     }
-
     public void windowOpened(WindowEvent e) 
     {
 
@@ -189,6 +206,9 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
 
     public void windowDeactivated(WindowEvent e) {
     }
+
+
+
     
     public class ClientRecivingThread extends Thread
     {
@@ -216,9 +236,11 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                 }                
                if(sentence.startsWith("ID"))
                {
-                    int id=Integer.parseInt(sentence.substring(2));
+                     id=Integer.parseInt(sentence.substring(2));
                     clientTank.setTankID(id);
-                    System.out.println("My ID= "+id);
+                    System.out.println("Player ID= "+id);
+                    Gameid.setText("Player ID : "+id);
+                   
                     
                }
                else if(sentence.startsWith("NewClient"))
