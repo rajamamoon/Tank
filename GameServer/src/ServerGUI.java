@@ -20,10 +20,7 @@ public class ServerGUI extends JFrame implements ActionListener {
     InetAddress host;
     String address;
     JTextArea textArea;
-
- 
     private Server server;
-    /** Creates a new instance of ServerGUI */
 
     public static void main(String args[]) throws IOException
     {
@@ -44,7 +41,7 @@ public class ServerGUI extends JFrame implements ActionListener {
         setBounds(750,400,400,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        
+            
         startButton=new JButton("Start Server");
         startButton.setBounds(50,30,120,25);
         startButton.addActionListener(this);
