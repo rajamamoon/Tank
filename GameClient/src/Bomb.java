@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Bomb {
-    
-    /** Creates a new instance of Bomb */
-    
+
     private Image bombImg;
     private BufferedImage bombBuffImage;
     
