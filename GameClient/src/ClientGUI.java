@@ -58,7 +58,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     {      
         soundManager=new SoundManager();    
         score=0;
-        setTitle("Multiclients Tanks Game");
+        setTitle("Battle Tank 2D");
         setSize(width,height);
         setLocation(100,100);
         setBounds(700,700,1500,1000);
