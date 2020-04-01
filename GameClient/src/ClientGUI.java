@@ -15,25 +15,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class ClientGUI extends JFrame implements ActionListener,WindowListener 
 {
-    
-    /** Creates a new instance of ClientGUI */
-    private JButton startmusic;
-    private JButton stopmusic;
-    
+   
     private JLabel ipaddressLabel;
     private JLabel portLabel;
     private static JLabel scoreLabel;
-     private JLabel Gameid;
+    private JLabel Gameid;
 
     private JTextField ipaddressText;
     private JTextField portText;
     private static int player1lives;
     private JButton registerButton;
     
+    private JButton startmusic;
+    private JButton stopmusic;
     
     private JPanel registerPanel;
     public static JPanel gameStatusPanel;
@@ -44,19 +43,20 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     private int id;
     
     int width=790,height=580;
-    boolean isRunning=true;
-    private GameBoardPanel boardPanel;
     
-    private SoundManger soundManger;
+    boolean isRunning=true;
+    
+    private GameBoardPanel boardPanel;
+    private SoundManager soundManager;
       
     public static void main(String args[]) throws IOException
     {
         ClientGUI client=new ClientGUI();
-     
     }
         
     public ClientGUI() 
-    {     
+    {      
+        soundManager=new SoundManager();    
         score=0;
         setTitle("Multiclients Tanks Game");
         setSize(width,height);
@@ -92,8 +92,30 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         Gameid.setBounds(10,100,100,25);
         scoreLabel=new JLabel("Score : 0");
         scoreLabel.setBounds(10,120,100,25);
-     
-     
+        
+        startmusic = new JButton("Start Music");
+        startmusic.setBounds(10,40,100,25);
+        startmusic.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          soundManager.sourceDataLine.start();
+          startmusic.setEnabled(false);
+          stopmusic.setEnabled(true);
+          stopmusic.setFocusable(false);
+        }
+        });
+        stopmusic = new JButton("Stop Music");
+        stopmusic.setBounds(10,60,100,25);
+        stopmusic.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          soundManager.sourceDataLine.close();
+          stopmusic.setEnabled(false);
+          startmusic.setEnabled(true);
+          startmusic.setFocusable(false);
+        }
+        });
+    
         ipaddressText=new JTextField("localhost");
         ipaddressText.setBounds(90,25,100,25);
         
@@ -105,8 +127,6 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
         registerButton.addActionListener(this);
         registerButton.setFocusable(true);
         
-
-    
         registerPanel.add(ipaddressLabel);
         registerPanel.add(portLabel);
         registerPanel.add(ipaddressText);
@@ -115,6 +135,8 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
        
         gameStatusPanel.add(Gameid);
         gameStatusPanel.add(scoreLabel);
+        gameStatusPanel.add(startmusic);
+        gameStatusPanel.add(stopmusic);
 
        
             
@@ -122,9 +144,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
          
         clientTank=new Tank();
         boardPanel=new GameBoardPanel(clientTank,client,false);
-        
-      
-        
+
         getContentPane().add(registerPanel);        
         getContentPane().add(gameStatusPanel);
         getContentPane().add(boardPanel);        
@@ -137,30 +157,23 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     {
         return score;
     }
-    
+
     public static void setScore(int scoreParametar)
     {
         score+=scoreParametar;
         scoreLabel.setText("Score : "+score);
-        
-        
+            
     }
     
     public void actionPerformed(ActionEvent e) 
     {
-        Object obj=e.getSource();
-        
-        
+        Object obj=e.getSource(); 
         if(obj==registerButton)
         {
-            registerButton.setEnabled(false);
-         //   soundManger=new SoundManger();
-            
+            registerButton.setEnabled(false);         
             try 
             {
                  client.register(ipaddressText.getText(),Integer.parseInt(portText.getText()),clientTank.getXposition(),clientTank.getYposition());
-                 
-                 
                  boardPanel.setGameStatus(true);
                  boardPanel.repaint();
                 try {
@@ -168,7 +181,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                 new ClientRecivingThread(client.getSocket()).start();
+                 new ClientReceivingThread(client.getSocket()).start();
                  registerButton.setFocusable(false);
                  boardPanel.setFocusable(true);
             } catch (IOException ex) 
@@ -177,44 +190,32 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                 System.out.println("The Server is not running!");
                 registerButton.setEnabled(true);
             }
-        }
-         
+        }  
     }
     public void windowOpened(WindowEvent e) 
     {
-
     }
-
     public void windowClosing(WindowEvent e) 
-    {
-        
+    {   
      int response=JOptionPane.showConfirmDialog(this,"Are you sure you want to exit ?","Tanks 2D Multiplayer Game!",JOptionPane.YES_NO_OPTION);
      Client.getGameClient().sendToServer(new Protocol().ExitMessagePacket(clientTank.getTankID()));    
     }
-    public void windowClosed(WindowEvent e) {
-        
+    public void windowClosed(WindowEvent e) {   
     }
-
     public void windowIconified(WindowEvent e) {
     }
-
     public void windowDeiconified(WindowEvent e) {
     }
-
     public void windowActivated(WindowEvent e) {
     }
-
     public void windowDeactivated(WindowEvent e) {
     }
 
-
-
-    
-    public class ClientRecivingThread extends Thread
+    public class ClientReceivingThread extends Thread
     {
         Socket clientSocket;
         DataInputStream reader;
-        public ClientRecivingThread(Socket clientSocket)
+        public ClientReceivingThread(Socket clientSocket)
         {
             this.clientSocket=clientSocket;
             try {
@@ -320,15 +321,13 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                }
                       
             }
-           
+       
             try {
                 reader.close();
                 clientSocket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }
-            
+            }  
         }
-    }
-    
+    }   
 }
