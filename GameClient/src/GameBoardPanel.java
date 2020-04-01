@@ -47,7 +47,7 @@ public class GameBoardPanel extends JPanel {
         g.drawImage(new ImageIcon("Images/bg.jpg").getImage(),70,50,null);
         g.setColor(Color.RED);
         g.setFont(new Font("Comic Sans MS",Font.BOLD,25));
-        g.drawString("Tanks 2D Multiplayers Game",500,30);
+        g.drawString("Battle Tank 2D",500,30);
         if(gameStatus) 
         { 
             g.drawImage(tank.getBuffImage(),tank.getXposition(),tank.getYposition(),this);
