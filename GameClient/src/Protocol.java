@@ -1,9 +1,5 @@
 public class Protocol {
-    
-    
-    /**
-     * Creates a new instance of Protocol
-     */
+
     private String message="";
     public Protocol() 
     {
