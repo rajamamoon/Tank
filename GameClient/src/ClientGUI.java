@@ -1,5 +1,3 @@
-import java.awt.Button;
-import java.io.IOException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,19 +6,16 @@ import java.awt.event.WindowListener;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class ClientGUI extends JFrame implements ActionListener,WindowListener 
 {
-   
     private JLabel ipaddressLabel;
     private JLabel portLabel;
     private static JLabel scoreLabel;
@@ -28,7 +23,6 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
 
     private JTextField ipaddressText;
     private JTextField portText;
-    private static int player1lives;
     private JButton registerButton;
     
     private JButton startmusic;
@@ -55,7 +49,8 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     }
         
     public ClientGUI() 
-    {      
+    {     
+        
         soundManager=new SoundManager();    
         score=0;
         setTitle("Battle Tank 2D");
@@ -102,6 +97,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
           startmusic.setEnabled(false);
           stopmusic.setEnabled(true);
           stopmusic.setFocusable(false);
+          startmusic.setFocusable(false);
         }
         });
         stopmusic = new JButton("Stop Music");
@@ -113,6 +109,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
           stopmusic.setEnabled(false);
           startmusic.setEnabled(true);
           startmusic.setFocusable(false);
+          stopmusic.setFocusable(false);
         }
         });
     
@@ -186,7 +183,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                  boardPanel.setFocusable(true);
             } catch (IOException ex) 
             {
-                JOptionPane.showMessageDialog(this,"The Server is not running, try again later!","Tanks 2D Multiplayer Game",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,"The Server is not running, try again later!","Battle Tanks 2D",JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("The Server is not running!");
                 registerButton.setEnabled(true);
             }
@@ -197,7 +194,7 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
     }
     public void windowClosing(WindowEvent e) 
     {   
-     int response=JOptionPane.showConfirmDialog(this,"Are you sure you want to exit ?","Tanks 2D Multiplayer Game!",JOptionPane.YES_NO_OPTION);
+     int response=JOptionPane.showConfirmDialog(this,"Are you sure you want to exit ?","Battle Tank 2D!",JOptionPane.YES_NO_OPTION);
      Client.getGameClient().sendToServer(new Protocol().ExitMessagePacket(clientTank.getTankID()));    
     }
     public void windowClosed(WindowEvent e) {   
@@ -291,13 +288,11 @@ public class ClientGUI extends JFrame implements ActionListener,WindowListener
                   
                   if(id==clientTank.getTankID())
                   {
-                        int response=JOptionPane.showConfirmDialog(null,"Sorry, You Lost. Do you want to try again ?","Tanks 2D Multiplayer Game",JOptionPane.OK_CANCEL_OPTION);
+                        int response=JOptionPane.showConfirmDialog(null,"Sorry, You Lost. Do you want to try again ?","Battle Tank 2D",JOptionPane.OK_CANCEL_OPTION);
                         if(response==JOptionPane.OK_OPTION)
                         {
-                            //client.closeAll();
                             setVisible(false);
                             dispose();
-                            
                             new ClientGUI();
                         }
                         else
