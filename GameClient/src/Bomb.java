@@ -10,60 +10,58 @@ public class Bomb {
     private Image bombImg;
     private BufferedImage bombBuffImage;
     
-    private int xPosi;
-    private int yPosi;
+    private int xPosition;
+    private int yPosition;
     private int direction;
     public boolean stop=false;
     private float velocityX=0.09f,velocityY=0.09f;
     
     public Bomb(int x,int y,int direction) {
-        final SimpleSoundPlayer sound_boom =new SimpleSoundPlayer("fire.wav");
-        final InputStream stream_boom =new ByteArrayInputStream(sound_boom.getSamples());
-        xPosi=x;
-        yPosi=y;
+        final SimpleSoundPlayer Firing_sound =new SimpleSoundPlayer("fire.wav");
+        final InputStream stream_boom =new ByteArrayInputStream(Firing_sound.getSamples());
+        xPosition=x;
+        yPosition=y;
         this.direction=direction;
         stop=false;
         bombImg=new ImageIcon("Images/bomb.png").getImage();
         
         bombBuffImage=new BufferedImage(bombImg.getWidth(null),bombImg.getHeight(null),BufferedImage.TYPE_INT_RGB);
         bombBuffImage.createGraphics().drawImage(bombImg,0,0,null);
-        Thread t= new Thread(new Runnable() {
+        Thread sound = new Thread(new Runnable() {
         public void run() {
-            sound_boom.play(stream_boom);
+            Firing_sound.play(stream_boom);
         }
     }); 
-    t.start();
+    sound.start();
     }
     public int getPosiX() {
-        return xPosi;
+        return xPosition;
     }
     public int getPosiY() {
-        return yPosi;
+        return yPosition;
     }
     public void setPosiX(int x) {
-        xPosi=x;
+        xPosition=x;
     }
     public void setPosiY(int y) {
-        yPosi=y;
+        yPosition=y;
     }
     public BufferedImage getBomBufferdImg() {
         return bombBuffImage;
     }
-    
     public BufferedImage getBombBuffImage() {
         return bombBuffImage;
     }
-    
     public boolean checkCollision() 
     {
-        ArrayList<Tank>clientTanks=GameBoardPanel.getClients();
+        ArrayList<Tank>PlayerTanks=GameBoardPanel.getClients();
         int x,y;
-        for(int i=1;i<clientTanks.size();i++) {
-            if(clientTanks.get(i)!=null) {
-                x=clientTanks.get(i).getXposition();
-                y=clientTanks.get(i).getYposition();
+        for(int i=1;i<PlayerTanks.size();i++) {
+            if(PlayerTanks.get(i)!=null) {
+                x=PlayerTanks.get(i).getXposition();
+                y=PlayerTanks.get(i).getYposition();
                 
-                if((yPosi>=y&&yPosi<=y+43)&&(xPosi>=x&&xPosi<=x+43)) 
+                if((yPosition>=y&&yPosition<=y+43)&&(xPosition>=x&&xPosition<=x+43)) 
                 {
                     
                     ClientGUI.setScore(50);
@@ -75,8 +73,8 @@ public class Bomb {
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
-                    if(clientTanks.get(i)!=null)
-                     Client.getGameClient().sendToServer(new Protocol().RemoveClientPacket(clientTanks.get(i).getTankID()));  
+                    if(PlayerTanks.get(i)!=null)
+                     Client.getGameClient().sendToServer(new Protocol().RemoveClientPacket(PlayerTanks.get(i).getTankID()));  
                     
                     return true;
                 }
@@ -87,16 +85,16 @@ public class Bomb {
     
     
     
-    public void startBombThread(boolean chekCollision) {
+    public void startFireThread(boolean chekCollision) {
         
-            new BombShotThread(chekCollision).start();
+            new BombFireThread(chekCollision).start();
             
     }
     
-    private class BombShotThread extends Thread 
+    private class BombFireThread extends Thread 
     {    
         boolean checkCollis;
-        public BombShotThread(boolean chCollision)
+        public BombFireThread(boolean chCollision)
         {
             checkCollis=chCollision;
         }
@@ -106,10 +104,10 @@ public class Bomb {
                 
                 if(direction==1) 
                 {
-                    xPosi=17+xPosi;
-                    while(yPosi>50) 
+                    xPosition=17+xPosition;
+                    while(yPosition>50) 
                     {
-                        yPosi=(int)(yPosi-yPosi*velocityY);
+                        yPosition=(int)(yPosition-yPosition*velocityY);
                         if(checkCollision()) 
                         {
                             break;
@@ -126,11 +124,11 @@ public class Bomb {
                 } 
                 else if(direction==2) 
                 {
-                    yPosi=17+yPosi;
-                    xPosi+=30;
-                    while(xPosi<1200) 
+                    yPosition=17+yPosition;
+                    xPosition+=30;
+                    while(xPosition<1200) 
                     {
-                        xPosi=(int)(xPosi+xPosi*velocityX);
+                        xPosition=(int)(xPosition+xPosition*velocityX);
                         if(checkCollision()) 
                         {
                             break;
@@ -146,11 +144,11 @@ public class Bomb {
                 }
                 else if(direction==3) 
                 {
-                    yPosi+=30;
-                    xPosi+=20;
-                    while(yPosi<923) 
+                    yPosition+=30;
+                    xPosition+=20;
+                    while(yPosition<923) 
                     {    
-                        yPosi=(int)(yPosi+yPosi*velocityY);
+                        yPosition=(int)(yPosition+yPosition*velocityY);
                         if(checkCollision()) 
                         {
                             break;
@@ -166,11 +164,11 @@ public class Bomb {
                 }
                 else if(direction==4) 
                 {
-                    yPosi=21+yPosi;
+                    yPosition=21+yPosition;
                     
-                    while(xPosi>70) 
+                    while(xPosition>70) 
                     {
-                        xPosi=(int)(xPosi-xPosi*velocityX);
+                        xPosition=(int)(xPosition-xPosition*velocityX);
                         if(checkCollision()) 
                         {
                             break;
@@ -191,10 +189,10 @@ public class Bomb {
             {
                  if(direction==1) 
                 {
-                    xPosi=17+xPosi;
-                    while(yPosi>50) 
+                    xPosition=17+xPosition;
+                    while(yPosition>50) 
                     {
-                        yPosi=(int)(yPosi-yPosi*velocityY);
+                        yPosition=(int)(yPosition-yPosition*velocityY);
                         
                         try {
                             
@@ -208,11 +206,11 @@ public class Bomb {
                 } 
                 else if(direction==2) 
                 {
-                    yPosi=17+yPosi;
-                    xPosi+=30;
-                    while(xPosi<564) 
+                    yPosition=17+yPosition;
+                    xPosition+=30;
+                    while(xPosition<564) 
                     {
-                        xPosi=(int)(xPosi+xPosi*velocityX);
+                        xPosition=(int)(xPosition+xPosition*velocityX);
                         
                         try {
                             
@@ -225,11 +223,11 @@ public class Bomb {
                 }
                 else if(direction==3) 
                 {
-                    yPosi+=30;
-                    xPosi+=20;
-                    while(yPosi<505) 
+                    yPosition+=30;
+                    xPosition+=20;
+                    while(yPosition<505) 
                     {    
-                        yPosi=(int)(yPosi+yPosi*velocityY);
+                        yPosition=(int)(yPosition+yPosition*velocityY);
                         
                         try {
                             
@@ -242,11 +240,11 @@ public class Bomb {
                 }
                 else if(direction==4) 
                 {
-                    yPosi=21+yPosi;
+                    yPosition=21+yPosition;
                     
-                    while(xPosi>70) 
+                    while(xPosition>70) 
                     {
-                        xPosi=(int)(xPosi-xPosi*velocityX);
+                        xPosition=(int)(xPosition-xPosition*velocityX);
                         
                         try {
                             
