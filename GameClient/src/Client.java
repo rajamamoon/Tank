@@ -37,10 +37,8 @@ public class Client {
         this.hostName=Ip;
         clientSocket=new Socket(Ip,port);
         writer=new DataOutputStream(clientSocket.getOutputStream());
-      
         writer.writeUTF(protocol.RegisterPacket(posX,posY));
         
-
     }
   
     public void sendToServer(String message)
