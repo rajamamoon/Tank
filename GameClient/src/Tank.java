@@ -175,7 +175,7 @@ public class Tank {
     {
         bomb[curBomb]=new Bomb(this.getXposition(),this.getYposition(),direction);
         
-        bomb[curBomb].startBombThread(true);
+        bomb[curBomb].startFireThread(true);
         curBomb++;
     }
     public Bomb[] getBomb()
@@ -201,7 +201,7 @@ public class Tank {
     {
         bomb[curBomb]=new Bomb(this.getXposition(),this.getYposition(),direction);
         
-        bomb[curBomb].startBombThread(false);
+        bomb[curBomb].startFireThread(false);
         curBomb++;
     
     }
