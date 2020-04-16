@@ -40,11 +40,11 @@ public class ServerGUI extends JFrame implements ActionListener {
         setBounds(750,400,400,400); //GUI component parameters (x, y, width, height)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);//set layout to absolute positioning - support drag components to a random position
-            
+        //button for starting the server    
         startButton=new JButton("Start Server");
         startButton.setBounds(50,30,120,25);
         startButton.addActionListener(this);
-        
+         //button for starting the server   
         stopButton=new JButton("Stop Server");
         stopButton.setBounds(200,30,120,25);
         stopButton.addActionListener(this);
@@ -82,10 +82,8 @@ public class ServerGUI extends JFrame implements ActionListener {
              textArea.append("Server is running on below IP"+"\n");
              textArea.append("Select localhost(127.0.0.1) if playing\non local server"+"\n");
              textArea.append("IP:"+address +"\n");
-             textArea.append("Port:"+"1111" + "\n");
-            
+             textArea.append("Port:"+"1111" + "\n");   
         }
-        
         if(e.getSource()==stopButton)
         {
             try {
@@ -93,8 +91,7 @@ public class ServerGUI extends JFrame implements ActionListener {
                 server.stopServer(); //stop the server
              
                 try {
-                    Thread.sleep(2000); //wait for 2 seconds
-                
+                    Thread.sleep(2000); //wait for 2 seconds 
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
