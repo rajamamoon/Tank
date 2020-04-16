@@ -24,7 +24,7 @@ public class ServerGUI extends JFrame implements ActionListener {
 
     public static void main(String args[]) throws IOException
     {
-       ServerGUI serverGUI=new ServerGUI();
+       ServerGUI serverGUI=new ServerGUI(); //instance of ServerGUI class
         
     }
 
@@ -32,15 +32,14 @@ public class ServerGUI extends JFrame implements ActionListener {
     public ServerGUI() throws UnknownHostException 
             
     {
-        
-        
-        host = InetAddress.getLocalHost();
-        address = host.getHostAddress();
-        
-        setTitle("Game Server GUI");
-        setBounds(750,400,400,400);
+                
+        host = InetAddress.getLocalHost();//returns the instance of InetAdddress with local host name and address
+        address = host.getHostAddress(); //returns the IP address in string format
+
+        setTitle("Game Server GUI"); //title of GUI window
+        setBounds(750,400,400,400); //GUI component parameters (x, y, width, height)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
+        setLayout(null);//set layout to absolute positioning - support drag components to a random position
             
         startButton=new JButton("Start Server");
         startButton.setBounds(50,30,120,25);
@@ -57,6 +56,7 @@ public class ServerGUI extends JFrame implements ActionListener {
         
         ImageIcon icon = new ImageIcon("Tankicon.png");
         setIconImage(icon.getImage());
+        //add the components to the container
         getContentPane().setBackground(Color.GRAY);
         getContentPane().add(startButton);
         getContentPane().add(stopButton);
@@ -74,7 +74,7 @@ public class ServerGUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource()==startButton)
+        if(e.getSource()==startButton) //for each player action, do the following:
         {
              server.start();
              startButton.setEnabled(false);
@@ -90,10 +90,10 @@ public class ServerGUI extends JFrame implements ActionListener {
         {
             try {
                 textArea.append("Server is stopping.....");
-                server.stopServer();
+                server.stopServer(); //stop the server
              
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(2000); //wait for 2 seconds
                 
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
