@@ -55,7 +55,6 @@ public class SoundManager {
                     sourceDataLine.close();
                     Thread.sleep(2000);
                 }catch (Exception e) {
-                    e.printStackTrace();
                     System.exit(0);
                 }
             }
