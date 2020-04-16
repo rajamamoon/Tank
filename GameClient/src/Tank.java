@@ -7,7 +7,7 @@ public class Tank {
     
     private Image[] tankImg;
     private BufferedImage ImageBuff;
-    private Bomb bomb[]=new Bomb[1000];
+    private Fire bomb[]=new Fire[1000];
     private int curBomb=0;
     private int tankID;
     private int posiX=-1,posiY=-1;
@@ -173,12 +173,12 @@ public class Tank {
     
     public void shot()
     {
-        bomb[curBomb]=new Bomb(this.getXposition(),this.getYposition(),direction);
+        bomb[curBomb]=new Fire(this.getXposition(),this.getYposition(),direction);
         
         bomb[curBomb].startFireThread(true);
         curBomb++;
     }
-    public Bomb[] getBomb()
+    public Fire[] getBomb()
     {
         return bomb;
     }
@@ -199,7 +199,7 @@ public class Tank {
 
     public void Shot() 
     {
-        bomb[curBomb]=new Bomb(this.getXposition(),this.getYposition(),direction);
+        bomb[curBomb]=new Fire(this.getXposition(),this.getYposition(),direction);
         
         bomb[curBomb].startFireThread(false);
         curBomb++;
