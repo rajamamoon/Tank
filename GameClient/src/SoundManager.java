@@ -7,9 +7,9 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
+//class used for background sound management
 public class SoundManager {
-    
+    //initialise the audiostream and format
     AudioFormat audioFormat;
     AudioInputStream audioInputStream;
     SourceDataLine sourceDataLine;
@@ -19,6 +19,7 @@ public class SoundManager {
     {
         new PlayThread().start();
     }
+    //store the audio strema into a temp buffer and start a dataline
     class PlayThread extends Thread{
         byte tempBuffer[] = new byte[10000];
         
