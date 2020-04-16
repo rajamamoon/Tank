@@ -10,7 +10,7 @@ public class Server extends Thread {
 
     private ArrayList<ClientInfo> clients;
     private ServerSocket serverSocket;
-    private int serverPort=1111;
+    private int serverPort=1111; //set default port number
     
    
     private DataInputStream reader;
@@ -21,9 +21,9 @@ public class Server extends Thread {
     public Server() throws SocketException 
     {
         clients=new ArrayList<ClientInfo>();
-        protocol=new Protocol();
+        protocol=new Protocol(); //initialize protocol instance
         try {
-            serverSocket=new ServerSocket(serverPort);
+            serverSocket=new ServerSocket(serverPort); //initialize socket for server
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -57,13 +57,13 @@ public class Server extends Thread {
         while(running)
         {     
             try {
-                clientSocket=serverSocket.accept();
+                clientSocket=serverSocket.accept(); //connect to client socket
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             String sentence="";
             try {
-                reader=new DataInputStream(clientSocket.getInputStream());
+                reader=new DataInputStream(clientSocket.getInputStream()); //send packets over the socket
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -74,7 +74,7 @@ public class Server extends Thread {
             }
             
             System.out.println(sentence);
-            if(sentence.startsWith("Hello"))
+            if(sentence.startsWith("Hello")) // if the message starts from Hello
             {
                 int pos=sentence.indexOf(',');
                 int x=Integer.parseInt(sentence.substring(5,pos));
@@ -97,7 +97,7 @@ public class Server extends Thread {
                 
             }
             
-            else if(sentence.startsWith("Update"))
+            else if(sentence.startsWith("Update")) // if the message starts from Update
             {
                     int pos1=sentence.indexOf(',');
                     int pos2=sentence.indexOf('-');
@@ -119,7 +119,7 @@ public class Server extends Thread {
                     }
                     
             }
-            else if(sentence.startsWith("Shot"))
+            else if(sentence.startsWith("Shot")) // if the message starts from Shot
             {
                 try {
                     BroadCastMessage(sentence);
@@ -127,7 +127,7 @@ public class Server extends Thread {
                     ex.printStackTrace();
                 }
             }
-            else if(sentence.startsWith("Remove"))
+            else if(sentence.startsWith("Remove")) // if the message starts from Remove
             {
                 int id=Integer.parseInt(sentence.substring(6));
 
@@ -138,7 +138,7 @@ public class Server extends Thread {
                 }
                 clients.set(id-1,null);
             }     
-            else if(sentence.startsWith("Exit"))
+            else if(sentence.startsWith("Exit")) // if the message starts from Exit
             {
                 int id=Integer.parseInt(sentence.substring(4));
 
@@ -175,6 +175,7 @@ public class Server extends Thread {
                 clients.get(i).getWriterStream().writeUTF(mess);
         }
     }
+    //send the client exit message when one of the tank left the game
     public void sendToClient(String message)
     {
          if(message.equals("exit"))
@@ -188,7 +189,7 @@ public class Server extends Thread {
             }
         }
     }
-    
+   //class to send all the recieved data to the clients 
     public void sendAllClients(DataOutputStream writer)
     {
         int x,y,dir;
@@ -206,7 +207,7 @@ public class Server extends Thread {
             }
         }
     }
-    
+    //setter and getter class for clientINFO
     public class ClientInfo
     {
         DataOutputStream writer;
